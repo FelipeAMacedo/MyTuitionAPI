@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${JDBC_URL}
+    username: ${DB_USER}
+    password: ${DB_PSW}
+    driver-class-name: ${JDBC_DRIVER}
+    test-on-borrow: false
+    test-while-idle: false
+    validation-query: select 1;
+    maxActive: 1
+  jpa:
+    properties:
+      show-sql: false
+      generate-ddl: true
+    hibernate:
+      dialect: org.hibernate.dialect.MySQLDialect
+      ddl-auto: validate
