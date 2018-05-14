@@ -45,6 +45,9 @@ public class Usuario implements Serializable {
 	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "usuario", orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<UsuarioDisciplina> usuarioDisciplina = new HashSet<>(0);
 
+	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "usuario", orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<UsuarioMateria> usuarioMateria = new HashSet<>(0);
+	
 	public String getEmail() {
 		return email;
 	}
@@ -115,5 +118,13 @@ public class Usuario implements Serializable {
 
 	public void setUsuarioDisciplina(Set<UsuarioDisciplina> usuarioDisciplina) {
 		this.usuarioDisciplina = usuarioDisciplina;
+	}
+
+	public Set<UsuarioMateria> getUsuarioMateria() {
+		return usuarioMateria;
+	}
+
+	public void setUsuarioMateria(Set<UsuarioMateria> usuarioMateria) {
+		this.usuarioMateria = usuarioMateria;
 	}
 }

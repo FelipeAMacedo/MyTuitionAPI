@@ -20,7 +20,7 @@ public class Alternativa implements Serializable {
 	private String texto;
 	private Boolean certo;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Conteudo conteudo;
 
 	public Long getId() {

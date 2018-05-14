@@ -1,28 +1,33 @@
-package br.com.felipe.mytuition.app.entity;
+package br.com.felipe.mytuition.app.api.dto.login;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-public class Heroi implements Serializable {
+public class HeroiResponseDTO implements Serializable {
 
-	private static final long serialVersionUID = -1801671650103032927L;
+	private static final long serialVersionUID = 8121810391676220L;
 
-	@Id
-	@GeneratedValue
+	@JsonProperty(value = "id")
 	private Long id;
+	
+	@JsonProperty(value = "nome")
 	private String nome;
-	private String imagem;
-	private Integer forca = 1;
-	private Integer agilidade = 1;
-	private Integer defesa = 1;
-	private Integer xp = 0;
 
-//	@OneToOne
-//	private Usuario usuario;
+	@JsonProperty(value = "imagem")
+	private String imagem;
+
+	@JsonProperty(value = "xp")
+	private Integer xp;
+
+	@JsonProperty(value = "forca")
+	private Integer forca;
+
+	@JsonProperty(value = "agilidade")
+	private Integer agilidade;
+
+	@JsonProperty(value = "defesa")
+	private Integer defesa;
 
 	public Long getId() {
 		return id;
@@ -48,6 +53,14 @@ public class Heroi implements Serializable {
 		this.imagem = imagem;
 	}
 
+	public Integer getXp() {
+		return xp;
+	}
+
+	public void setXp(Integer xp) {
+		this.xp = xp;
+	}
+
 	public Integer getForca() {
 		return forca;
 	}
@@ -70,22 +83,6 @@ public class Heroi implements Serializable {
 
 	public void setDefesa(Integer defesa) {
 		this.defesa = defesa;
-	}
-
-//	public Usuario getUsuario() {
-//		return usuario;
-//	}
-//
-//	public void setUsuario(Usuario usuario) {
-//		this.usuario = usuario;
-//	}
-
-	public Integer getXp() {
-		return xp;
-	}
-
-	public void setXp(Integer xp) {
-		this.xp = xp;
 	}
 
 }

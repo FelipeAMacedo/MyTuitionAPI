@@ -23,11 +23,11 @@ public class UsuarioDisciplina implements Serializable {
 	
 	private LocalDateTime conclusao;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "id_usuario", nullable = false, insertable = false, updatable = false)
 	private Usuario usuario;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "id_disciplina", nullable = false, insertable = false, updatable = false)
 	private Disciplina disciplina;
 

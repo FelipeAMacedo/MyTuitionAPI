@@ -25,6 +25,7 @@ import br.com.felipe.mytuition.app.api.dto.UsuarioDTO;
 import br.com.felipe.mytuition.app.api.dto.materia.MateriaDTO;
 import br.com.felipe.mytuition.app.api.dto.materia.MateriaResultDTO;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.MateriaSaveWrapper;
+import br.com.felipe.mytuition.app.entity.Conteudo;
 import br.com.felipe.mytuition.app.entity.Materia;
 import br.com.felipe.mytuition.app.service.MateriaService;
 import br.com.felipe.mytuition.app.utils.Result;
@@ -48,6 +49,8 @@ public class MateriaRestfulImpl implements MateriaRestful {
 
 		ModelMapper mapper = new ModelMapper();
 		Materia materia = mapper.map(materiaDTO, Materia.class);
+		
+		addMateriaToConteudos(materia);
 
 		try {
 			service.inserir(materia);
@@ -58,6 +61,20 @@ public class MateriaRestfulImpl implements MateriaRestful {
 
 			return Response.status(result.getCode()).entity(result).build();
 		}
+	}
+
+	private void addMateriaToConteudos(Materia materia) {
+		materia.getConteudo().forEach(conteudo -> {
+			conteudo.setMateria(materia);
+			addConteudoToAlternativas(conteudo);
+		});
+		
+	}
+
+	private void addConteudoToAlternativas(Conteudo conteudo) {
+		conteudo.getAlternativas().forEach(alternativa -> {
+			alternativa.setConteudo(conteudo);
+		});
 	}
 
 	@Override
@@ -74,6 +91,7 @@ public class MateriaRestfulImpl implements MateriaRestful {
 	@Override
 	@GET
 	@Path("/disciplina/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response findByDisciplina(@PathParam("id") Long id) {
 		List<Materia> materias;
 

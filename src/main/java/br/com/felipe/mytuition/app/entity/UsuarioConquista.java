@@ -21,11 +21,11 @@ public class UsuarioConquista implements Serializable {
 	@Column(updatable = false)
 	private LocalDate dataConquista;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "id_usuario", nullable = false, insertable = false, updatable = false)
 	private Usuario usuario;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "id_conquista", nullable = false, insertable = false, updatable = false)
 	private Conquista conquista;
 

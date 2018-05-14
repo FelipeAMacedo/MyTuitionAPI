@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -28,12 +30,15 @@ public class Materia implements Serializable {
 	@Enumerated
 	private Atributo atributo;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Disciplina disciplina;
 
 	@OneToMany(mappedBy = "materia", cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true)
 	private Set<Conteudo> conteudo = new HashSet<>(0);
 
+	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "materia", orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<UsuarioMateria> usuarioMateria = new HashSet<>(0);
+	
 	public Long getId() {
 		return id;
 	}
@@ -80,6 +85,14 @@ public class Materia implements Serializable {
 
 	public void setConteudo(Set<Conteudo> conteudo) {
 		this.conteudo = conteudo;
+	}
+
+	public Set<UsuarioMateria> getUsuarioMateria() {
+		return usuarioMateria;
+	}
+
+	public void setUsuarioMateria(Set<UsuarioMateria> usuarioMateria) {
+		this.usuarioMateria = usuarioMateria;
 	}
 
 }

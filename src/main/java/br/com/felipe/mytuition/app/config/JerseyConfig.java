@@ -4,8 +4,10 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
 import br.com.felipe.mytuition.app.api.impl.ConquistaRestfulImpl;
+import br.com.felipe.mytuition.app.api.impl.ConteudoRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.DisciplinaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.HelloImpl;
+import br.com.felipe.mytuition.app.api.impl.HeroiRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.MateriaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.UsuarioRestfulImpl;
 
@@ -22,5 +24,7 @@ public class JerseyConfig extends ResourceConfig {
 		register(DisciplinaRestfulImpl.class);
 		register(MateriaRestfulImpl.class);
 		register(ConquistaRestfulImpl.class);
+		register(ConteudoRestfulImpl.class);
+		register(HeroiRestfulImpl.class);
 	}
 }

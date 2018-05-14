@@ -11,31 +11,31 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class UsuarioConteudo implements Serializable {
+public class UsuarioMateria implements Serializable {
 
-	private static final long serialVersionUID = -134072727402007115L;
+	private static final long serialVersionUID = -341247541651906L;
 
 	@EmbeddedId
-	private UsuarioConteudoId id;
+	private UsuarioMateriaId id;
 	
 	@Column(updatable = false)
 	private LocalDateTime inicio;
 	
-	private LocalDateTime fim;
+	private LocalDateTime conclusao;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "id_usuario", nullable = false, insertable = false, updatable = false)
 	private Usuario usuario;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "id_conteudo", nullable = false, insertable = false, updatable = false)
-	private Conteudo conteudo;
+	@JoinColumn(name = "id_materia", nullable = false, insertable = false, updatable = false)
+	private Materia materia;
 
-	public UsuarioConteudoId getId() {
+	public UsuarioMateriaId getId() {
 		return id;
 	}
 
-	public void setId(UsuarioConteudoId id) {
+	public void setId(UsuarioMateriaId id) {
 		this.id = id;
 	}
 
@@ -47,12 +47,12 @@ public class UsuarioConteudo implements Serializable {
 		this.inicio = inicio;
 	}
 
-	public LocalDateTime getFim() {
-		return fim;
+	public LocalDateTime getConclusao() {
+		return conclusao;
 	}
 
-	public void setFim(LocalDateTime fim) {
-		this.fim = fim;
+	public void setConclusao(LocalDateTime conclusao) {
+		this.conclusao = conclusao;
 	}
 
 	public Usuario getUsuario() {
@@ -63,12 +63,12 @@ public class UsuarioConteudo implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Conteudo getConteudo() {
-		return conteudo;
+	public Materia getMateria() {
+		return materia;
 	}
 
-	public void setConteudo(Conteudo conteudo) {
-		this.conteudo = conteudo;
+	public void setMateria(Materia materia) {
+		this.materia = materia;
 	}
 
 }

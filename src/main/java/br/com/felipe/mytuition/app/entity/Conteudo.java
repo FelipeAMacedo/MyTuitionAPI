@@ -7,8 +7,10 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -21,18 +23,19 @@ public class Conteudo implements Serializable {
 	@GeneratedValue
 	private Long id;
 
+	@Lob
 	private String texto;
 	private LocalTime duracao;
 
 	private Integer ordem;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Materia materia;
 
 	@ManyToOne
 	private Ataque ataque;
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "conteudo", orphanRemoval = true )
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "conteudo", orphanRemoval = true, fetch = FetchType.EAGER )
 	private Set<Alternativa> alternativas = new HashSet<>(0);
 
 	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "conteudo", orphanRemoval = true)

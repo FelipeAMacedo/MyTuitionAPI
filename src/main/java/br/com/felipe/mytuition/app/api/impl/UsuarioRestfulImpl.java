@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 import br.com.felipe.mytuition.app.api.UsuarioRestful;
 import br.com.felipe.mytuition.app.api.dto.LoginDTO;
 import br.com.felipe.mytuition.app.api.dto.UsuarioDTO;
+import br.com.felipe.mytuition.app.api.dto.login.AtaqueResponseDTO;
+import br.com.felipe.mytuition.app.api.dto.login.HeroiResponseDTO;
+import br.com.felipe.mytuition.app.api.dto.login.UsuarioResponseDTO;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.LoginWrapper;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.UsuarioSaveWrapper;
 import br.com.felipe.mytuition.app.entity.Usuario;
@@ -67,10 +70,19 @@ public class UsuarioRestfulImpl implements UsuarioRestful {
 
 		ModelMapper mapper = new ModelMapper();
 		Usuario usuario = mapper.map(loginDTO, Usuario.class);
-
+		
+		
 		try {
 			Usuario usuarioLogado = service.login(usuario);
-			return Response.ok(usuarioLogado).build();
+			
+			UsuarioResponseDTO dto = mapper.map(usuarioLogado, UsuarioResponseDTO.class);
+			HeroiResponseDTO heroiResponseDTO = mapper.map(usuarioLogado.getHeroi(), HeroiResponseDTO.class);
+			AtaqueResponseDTO ataqueResponseDTO = mapper.map(usuarioLogado.getAtaque(), AtaqueResponseDTO.class);
+			
+			dto.setAtaqueResponseDTO(ataqueResponseDTO);
+			dto.setHeroiResponseDTO(heroiResponseDTO);
+			
+			return Response.ok(dto).build();
 		} catch (Exception e) {
 			result.setCode(Status.BAD_REQUEST.getStatusCode());
 			result.setMessage(e.getMessage());

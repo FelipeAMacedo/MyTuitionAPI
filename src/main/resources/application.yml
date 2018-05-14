@@ -14,4 +14,4 @@ spring:
       generate-ddl: true
     hibernate:
       dialect: org.hibernate.dialect.MySQLDialect
-      ddl-auto: validate
+      ddl-auto: update

@@ -10,6 +10,9 @@ public class MateriaResultDTO implements Serializable {
 
 	private static final long serialVersionUID = -8729032093983945789L;
 
+	@JsonProperty(value = "id")
+	private Long id;
+
 	@JsonProperty(value = "nome")
 	private String nome;
 
@@ -18,6 +21,14 @@ public class MateriaResultDTO implements Serializable {
 
 	@JsonProperty(value = "atributo")
 	private Atributo atributo;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
