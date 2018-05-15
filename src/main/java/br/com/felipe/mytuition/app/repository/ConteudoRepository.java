@@ -16,8 +16,8 @@ public interface ConteudoRepository extends JpaRepository<Materia, String> {
 	@Query("SELECT c FROM Conteudo c WHERE c.materia.id = :id ORDER BY c.ordem")
 	Set<Conteudo> findByMateriaId(@Param("id") Long id);
 
-//	@Query("SELECT c FROM Conteudo c WHERER c.materia.id IN :ids")
-//	Set<Conteudo> findQuestionsByMateriaId(@Param("ids") List<Long> ids);
+	@Query("SELECT c FROM Conteudo c WHERER c.materia.id IN (select um.id.materiaId FROM UsuarioMateria um WHERE um.id.usuarioId = :usuarioId) AND size(c.alternativas) > 0")
+	Set<Conteudo> findAvailableQuestionsByUsuarioId(@Param("usuarioId") Long usuarioId);
 	
 	@Query("SELECT c FROM Conteudo c WHERE c.materia.id = :id AND size(c.alternativas) > 0")
 	Set<Conteudo> findQuestionsByMateriaId(@Param("id") Long id);

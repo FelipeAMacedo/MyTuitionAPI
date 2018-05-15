@@ -120,4 +120,37 @@ public class ConteudoRestfulImpl implements ConteudoRestful {
 			return Response.status(result.getCode()).entity(result).build();
 		}
 	}
+	
+	@Override
+	@GET
+	@Path("/usuario/{id}/questoes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAvailableQuestionsByUsuarioId(@PathParam("id") Long id) {
+		Set<Conteudo> conteudos;
+
+		try {
+			conteudos = service.findQuestionsByMateriaId(id);
+
+			if (conteudos == null) {
+				result.setCode(Status.BAD_REQUEST.getStatusCode());
+				result.setMessage("A lista está vazia");
+
+				return Response.status(result.getCode()).entity(result).build();
+			}
+
+			List<ConteudoResultDTO> conteudosDTO = mapResultListToDTO(conteudos);
+
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectWriter writer = mapper.writer().withRootName("conteudos");
+			String responseList = writer.writeValueAsString(conteudosDTO);
+
+			return Response.ok(responseList).build();
+		
+		} catch (Exception e) {
+			result.setCode(Status.BAD_REQUEST.getStatusCode());
+			result.setMessage(e.getMessage());
+
+			return Response.status(result.getCode()).entity(result).build();
+		}
+	}
 }

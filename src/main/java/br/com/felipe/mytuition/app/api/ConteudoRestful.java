@@ -6,4 +6,5 @@ public interface ConteudoRestful {
 
 	Response findByMateria(Long id);
 	Response findQuestionsByMateria(Long id);
+	Response findAvailableQuestionsByUsuarioId(Long id);
 }

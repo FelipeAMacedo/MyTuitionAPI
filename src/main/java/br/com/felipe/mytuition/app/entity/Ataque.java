@@ -25,6 +25,10 @@ public class Ataque implements Serializable {
 	private LocalDateTime data;
 
 	private Integer periodo;
+	
+	private Boolean venceu;
+	
+	private Integer pontos;
 
 	@ManyToOne
 	private Usuario usuario;
@@ -54,6 +58,22 @@ public class Ataque implements Serializable {
 
 	public void setPeriodo(Integer periodo) {
 		this.periodo = periodo;
+	}
+
+	public Boolean getVenceu() {
+		return venceu;
+	}
+
+	public void setVenceu(Boolean venceu) {
+		this.venceu = venceu;
+	}
+
+	public Integer getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(Integer pontos) {
+		this.pontos = pontos;
 	}
 
 	public Usuario getUsuario() {
