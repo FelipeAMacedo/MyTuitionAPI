@@ -33,10 +33,13 @@ public class MateriaServiceImpl implements MateriaService {
 	}
 
 	@Override
-	public List<Materia> findByDisciplinaId(Long id) throws Exception {
+	public List<Materia> findByDisciplinaId(String email, Long id) throws Exception {
 		LOGGER.info("As matérias serão buscadas");
 		try {
-			return repository.findByDisciplinaId(id);
+			if(email == null || email.isEmpty())
+				return repository.findByDisciplinaId(id);
+			else
+				return repository.findByDisciplinaId(email, id);
 		} catch (Exception e) {
 			LOGGER.info("Erro ao buscar as matérias");
 			throw new Exception("", e);

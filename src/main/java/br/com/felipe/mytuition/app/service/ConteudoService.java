@@ -10,5 +10,5 @@ public interface ConteudoService {
 
 	Set<Conteudo> findQuestionsByMateriaId(Long id) throws Exception;
 	
-	Set<Conteudo> findAvailableQuestionsByUsuarioId(Long usuarioId) throws Exception;
+	Set<Conteudo> findAvailableQuestionsByUsuarioId(String usuarioId) throws Exception;
 }

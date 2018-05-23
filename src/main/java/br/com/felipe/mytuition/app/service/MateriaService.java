@@ -8,5 +8,5 @@ public interface MateriaService {
 
 	Materia inserir(Materia materia) throws Exception;
 
-	List<Materia> findByDisciplinaId(Long id) throws Exception;
+	List<Materia> findByDisciplinaId(String email, Long id) throws Exception;
 }

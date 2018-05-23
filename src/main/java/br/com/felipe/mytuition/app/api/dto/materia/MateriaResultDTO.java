@@ -1,9 +1,11 @@
 package br.com.felipe.mytuition.app.api.dto.materia;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import br.com.felipe.mytuition.app.api.dto.usuarioMateria.UsuarioMateriaResultDTO;
 import br.com.felipe.mytuition.app.enumerations.Atributo;
 
 public class MateriaResultDTO implements Serializable {
@@ -21,6 +23,9 @@ public class MateriaResultDTO implements Serializable {
 
 	@JsonProperty(value = "atributo")
 	private Atributo atributo;
+
+	@JsonProperty(value = "usuarioMateria")
+	private Set<UsuarioMateriaResultDTO> usuarioMateriaResultDTO;
 
 	public Long getId() {
 		return id;
@@ -52,6 +57,14 @@ public class MateriaResultDTO implements Serializable {
 
 	public void setAtributo(Atributo atributo) {
 		this.atributo = atributo;
+	}
+
+	public Set<UsuarioMateriaResultDTO> getUsuarioMateriaResultDTO() {
+		return usuarioMateriaResultDTO;
+	}
+
+	public void setUsuarioMateriaResultDTO(Set<UsuarioMateriaResultDTO> usuarioMateriaResultDTO) {
+		this.usuarioMateriaResultDTO = usuarioMateriaResultDTO;
 	}
 
 }

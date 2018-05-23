@@ -11,16 +11,16 @@ public class UsuarioDisciplinaId implements Serializable {
 	private static final long serialVersionUID = 5194698684021449931L;
 
 	@Column(name = "id_usuario")
-	private Long usuarioId;
+	private String usuarioId;
 
 	@Column(name = "id_conquista")
 	private Long conquistaId;
 
-	public Long getUsuarioId() {
+	public String getUsuarioId() {
 		return usuarioId;
 	}
 
-	public void setUsuarioId(Long usuarioId) {
+	public void setUsuarioId(String usuarioId) {
 		this.usuarioId = usuarioId;
 	}
 

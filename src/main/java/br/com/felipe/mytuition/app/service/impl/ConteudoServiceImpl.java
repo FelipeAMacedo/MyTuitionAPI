@@ -45,7 +45,7 @@ public class ConteudoServiceImpl implements ConteudoService {
 	}
 	
 	@Override
-	public Set<Conteudo> findAvailableQuestionsByUsuarioId(Long usuarioId) throws Exception {
+	public Set<Conteudo> findAvailableQuestionsByUsuarioId(String usuarioId) throws Exception {
 		LOGGER.info("As questões serão buscadas");
 		try {
 			return repository.findAvailableQuestionsByUsuarioId(usuarioId);

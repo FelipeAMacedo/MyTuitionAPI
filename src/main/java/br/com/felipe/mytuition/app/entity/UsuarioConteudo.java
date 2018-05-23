@@ -18,7 +18,7 @@ public class UsuarioConteudo implements Serializable {
 	@EmbeddedId
 	private UsuarioConteudoId id;
 	
-	@Column(updatable = false)
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime inicio;
 	
 	private LocalDateTime fim;

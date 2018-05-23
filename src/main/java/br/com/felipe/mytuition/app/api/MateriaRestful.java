@@ -8,5 +8,5 @@ public interface MateriaRestful {
 
 	Response insert(MateriaSaveWrapper wrapper);
 	Response findAll();
-	Response findByDisciplina(Long id);
+	Response findByDisciplina(String email, Long id);
 }

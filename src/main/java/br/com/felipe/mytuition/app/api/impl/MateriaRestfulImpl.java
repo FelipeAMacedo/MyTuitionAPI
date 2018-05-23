@@ -1,10 +1,13 @@
 package br.com.felipe.mytuition.app.api.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -25,6 +28,7 @@ import br.com.felipe.mytuition.app.api.dto.UsuarioDTO;
 import br.com.felipe.mytuition.app.api.dto.materia.MateriaDTO;
 import br.com.felipe.mytuition.app.api.dto.materia.MateriaResultDTO;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.MateriaSaveWrapper;
+import br.com.felipe.mytuition.app.api.dto.usuarioMateria.UsuarioMateriaResultDTO;
 import br.com.felipe.mytuition.app.entity.Conteudo;
 import br.com.felipe.mytuition.app.entity.Materia;
 import br.com.felipe.mytuition.app.service.MateriaService;
@@ -92,11 +96,11 @@ public class MateriaRestfulImpl implements MateriaRestful {
 	@GET
 	@Path("/disciplina/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findByDisciplina(@PathParam("id") Long id) {
+	public Response findByDisciplina(@HeaderParam(value = "email") String email, @PathParam("id") Long id) {
 		List<Materia> materias;
 
 		try {
-			materias = service.findByDisciplinaId(id);
+			materias = service.findByDisciplinaId(email, id);
 
 			if (materias == null) {
 				result.setCode(Status.BAD_REQUEST.getStatusCode());
@@ -126,7 +130,19 @@ public class MateriaRestfulImpl implements MateriaRestful {
 
 		ModelMapper mapper = new ModelMapper();
 
-		materias.forEach(materia -> materiasDTO.add(mapper.map(materia, MateriaResultDTO.class)));
+		materias.forEach(materia -> {
+			
+			MateriaResultDTO materiaResult = mapper.map(materia, MateriaResultDTO.class);
+			
+			if (!materia.getUsuarioMateria().isEmpty()) {
+				Set<UsuarioMateriaResultDTO> usuarioMateriasDTO = new HashSet<>(0);
+				
+				materia.getUsuarioMateria().forEach(usuarioMateria -> usuarioMateriasDTO.add(mapper.map(usuarioMateria, UsuarioMateriaResultDTO.class)));
+				materiaResult.setUsuarioMateriaResultDTO(usuarioMateriasDTO);
+			}
+			
+			materiasDTO.add(materiaResult);
+		});
 
 		return materiasDTO;
 	}

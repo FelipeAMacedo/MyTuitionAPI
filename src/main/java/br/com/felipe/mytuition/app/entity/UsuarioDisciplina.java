@@ -18,7 +18,7 @@ public class UsuarioDisciplina implements Serializable {
 	@EmbeddedId
 	private UsuarioDisciplinaId id;
 	
-	@Column(updatable = false)
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime inicio;
 	
 	private LocalDateTime conclusao;

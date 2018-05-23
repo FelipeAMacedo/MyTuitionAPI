@@ -15,4 +15,7 @@ public interface MateriaRepository extends JpaRepository<Materia, String> {
 	@Query("SELECT m FROM Materia m WHERE m.disciplina.id = :id")
 	List<Materia> findByDisciplinaId(@Param("id") Long id);
 
+	@Query("SELECT m FROM Materia m LEFT JOIN m.usuarioMateria um ON (m.id = um.materia.id AND um.usuario.email = :email) WHERE m.disciplina.id = :id")
+	List<Materia> findByDisciplinaId(@Param("email") String email, @Param("id") Long id);
+
 }

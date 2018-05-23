@@ -18,7 +18,7 @@ public class UsuarioMateria implements Serializable {
 	@EmbeddedId
 	private UsuarioMateriaId id;
 	
-	@Column(updatable = false)
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime inicio;
 	
 	private LocalDateTime conclusao;

@@ -9,6 +9,7 @@ import br.com.felipe.mytuition.app.api.impl.DisciplinaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.HelloImpl;
 import br.com.felipe.mytuition.app.api.impl.HeroiRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.MateriaRestfulImpl;
+import br.com.felipe.mytuition.app.api.impl.UsuarioMateriaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.UsuarioRestfulImpl;
 
 @Component
@@ -26,5 +27,6 @@ public class JerseyConfig extends ResourceConfig {
 		register(ConquistaRestfulImpl.class);
 		register(ConteudoRestfulImpl.class);
 		register(HeroiRestfulImpl.class);
+		register(UsuarioMateriaRestfulImpl.class);
 	}
 }

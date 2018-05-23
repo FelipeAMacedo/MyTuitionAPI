@@ -11,16 +11,16 @@ public class UsuarioConteudoId implements Serializable {
 	private static final long serialVersionUID = -5792908029997332776L;
 
 	@Column(name = "id_usuario")
-	private Long usuarioId;
+	private String usuarioId;
 	
 	@Column(name = "id_conteudo")
 	private Long conteudoId;
 
-	public Long getUsuarioId() {
+	public String getUsuarioId() {
 		return usuarioId;
 	}
 
-	public void setUsuarioId(Long usuarioId) {
+	public void setUsuarioId(String usuarioId) {
 		this.usuarioId = usuarioId;
 	}
 

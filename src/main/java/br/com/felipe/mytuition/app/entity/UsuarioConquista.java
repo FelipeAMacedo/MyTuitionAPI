@@ -18,7 +18,7 @@ public class UsuarioConquista implements Serializable {
 	@EmbeddedId
 	private UsuarioConquistaId id;
 	
-	@Column(updatable = false)
+	@Column(nullable = false, updatable = false)
 	private LocalDate dataConquista;
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
