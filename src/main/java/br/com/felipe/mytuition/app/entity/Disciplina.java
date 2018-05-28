@@ -20,6 +20,9 @@ public class Disciplina implements Serializable {
 
 	private String nome;
 	private String descricao;
+	
+	@OneToMany(mappedBy = "disciplina", orphanRemoval = true)
+	private Set<Conquista> conquistas = new HashSet<>(0);
 
 	@OneToMany(mappedBy = "disciplina")
 	private Set<Materia> materias = new HashSet<>(0);
@@ -46,6 +49,14 @@ public class Disciplina implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Set<Conquista> getConquistas() {
+		return conquistas;
+	}
+
+	public void setConquistas(Set<Conquista> conquistas) {
+		this.conquistas = conquistas;
 	}
 
 	public Set<Materia> getMaterias() {

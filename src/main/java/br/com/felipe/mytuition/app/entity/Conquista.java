@@ -1,6 +1,7 @@
 package br.com.felipe.mytuition.app.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,7 +25,12 @@ public class Conquista implements Serializable {
 	private String nome;
 	private String descricao;
 	private String imagem;
+	private LocalDateTime dataCriacao;
+	private LocalDateTime dataAlteracao;
 	
+	@ManyToOne(optional= true)
+	private Disciplina disciplina;
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "conquista")
 	private Set<UsuarioConquista> usuarioConquista = new HashSet<>(0);
 
@@ -57,6 +64,38 @@ public class Conquista implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public LocalDateTime getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(LocalDateTime dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public Set<UsuarioConquista> getUsuarioConquista() {
+		return usuarioConquista;
+	}
+
+	public void setUsuarioConquista(Set<UsuarioConquista> usuarioConquista) {
+		this.usuarioConquista = usuarioConquista;
 	}
 
 }
