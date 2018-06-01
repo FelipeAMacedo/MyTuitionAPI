@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -20,12 +22,15 @@ public class Disciplina implements Serializable {
 
 	private String nome;
 	private String descricao;
-	
+
 	@OneToMany(mappedBy = "disciplina", orphanRemoval = true)
 	private Set<Conquista> conquistas = new HashSet<>(0);
 
 	@OneToMany(mappedBy = "disciplina")
 	private Set<Materia> materias = new HashSet<>(0);
+
+	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "disciplina", orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<UsuarioDisciplina> usuarioDisciplina = new HashSet<>(0);
 
 	public Long getId() {
 		return id;
@@ -65,6 +70,14 @@ public class Disciplina implements Serializable {
 
 	public void setMaterias(Set<Materia> materias) {
 		this.materias = materias;
+	}
+
+	public Set<UsuarioDisciplina> getUsuarioDisciplina() {
+		return usuarioDisciplina;
+	}
+
+	public void setUsuarioDisciplina(Set<UsuarioDisciplina> usuarioDisciplina) {
+		this.usuarioDisciplina = usuarioDisciplina;
 	}
 
 }

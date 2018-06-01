@@ -8,6 +8,6 @@ public interface ConquistaService {
 
 	Conquista insert(Conquista conquista) throws Exception;
 	
-	List<Conquista> buscarNovasAtualizacoes(List<Conquista> conquistas) throws Exception;
+	List<Conquista> buscarNovasAtualizacoes(List<Conquista> conquistas, String email) throws Exception;
 
 }

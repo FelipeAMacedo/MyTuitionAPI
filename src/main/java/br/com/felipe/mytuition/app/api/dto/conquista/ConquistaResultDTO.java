@@ -12,6 +12,9 @@ public class ConquistaResultDTO implements Serializable {
 
 	private static final long serialVersionUID = -3886309105225115229L;
 
+	@JsonProperty(value = "id")
+	private Long id;
+
 	@JsonProperty(value = "nome")
 	private String nome;
 
@@ -20,7 +23,7 @@ public class ConquistaResultDTO implements Serializable {
 
 	@JsonProperty(value = "imagem")
 	private String imagem;
-	
+
 	@JsonProperty(value = "dataCriacao")
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime dataCriacao;
@@ -28,6 +31,14 @@ public class ConquistaResultDTO implements Serializable {
 	@JsonProperty(value = "dataAlteracao")
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime dataAlteracao;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
@@ -68,7 +79,5 @@ public class ConquistaResultDTO implements Serializable {
 	public void setDataAlteracao(LocalDateTime dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
-	
-	
 
 }

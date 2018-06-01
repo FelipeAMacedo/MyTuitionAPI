@@ -15,9 +15,9 @@ public class ConquistaBuscaDTO implements Serializable {
 	@JsonProperty(value = "id")
 	private Long id;
 
-	@JsonProperty(value = "dataAtualizacao")
+	@JsonProperty(value = "dataAlteracao")
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime dataAtualizacao;
+	private LocalDateTime dataAlteracao;
 
 	public Long getId() {
 		return id;
@@ -27,12 +27,12 @@ public class ConquistaBuscaDTO implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDateTime getDataAtualizacao() {
-		return dataAtualizacao;
+	public LocalDateTime getDataAlteracao() {
+		return dataAlteracao;
 	}
 
-	public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
+	public void setDataAlteracao(LocalDateTime dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
 	}
 
 }

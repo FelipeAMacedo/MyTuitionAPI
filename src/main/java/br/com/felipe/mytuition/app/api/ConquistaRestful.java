@@ -10,6 +10,6 @@ public interface ConquistaRestful {
 
 	Response conquistar(ConquistaUsuarioSaveWrapper wrapper);
 	Response insert(ConquistaSaveWrapper wrapper);
-	Response buscarNovasAtualizacoes(ConquistaBuscaWrapper wrapper);
+	Response buscarNovasAtualizacoes(ConquistaBuscaWrapper wrapper, String email);
 	Response findAll();
 }

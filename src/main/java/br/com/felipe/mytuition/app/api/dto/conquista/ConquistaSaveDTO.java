@@ -29,6 +29,9 @@ public class ConquistaSaveDTO implements Serializable {
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime dataAlteracao;
 
+	@JsonProperty(value = "disciplina")
+	private DisciplinaConquistaSaveDTO disciplinaConquistaSaveDTO;
+
 	public String getNome() {
 		return nome;
 	}
@@ -67,6 +70,14 @@ public class ConquistaSaveDTO implements Serializable {
 
 	public void setDataAlteracao(LocalDateTime dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
+	}
+
+	public DisciplinaConquistaSaveDTO getDisciplinaConquistaSaveDTO() {
+		return disciplinaConquistaSaveDTO;
+	}
+
+	public void setDisciplinaConquistaSaveDTO(DisciplinaConquistaSaveDTO disciplinaConquistaSaveDTO) {
+		this.disciplinaConquistaSaveDTO = disciplinaConquistaSaveDTO;
 	}
 
 }

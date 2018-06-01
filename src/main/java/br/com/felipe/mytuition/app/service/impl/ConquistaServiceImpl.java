@@ -34,19 +34,32 @@ public class ConquistaServiceImpl implements ConquistaService {
 	}
 
 	@Override
-	public List<Conquista> buscarNovasAtualizacoes(List<Conquista> conquistas) throws Exception {
+	public List<Conquista> buscarNovasAtualizacoes(List<Conquista> conquistas, String email) throws Exception {
 		try {
+			LOGGER.info("Vai buscar atualizações e novas conquistas");
 			if (!conquistas.isEmpty()) {
 
 				List<Long> listaId = new ArrayList<>();
 				List<LocalDateTime> listaData = new ArrayList<>();
+				
+				List<Conquista> conquistasAtualizadas = new ArrayList<>();
 
-				conquistas.forEach(conquista -> {
-					listaId.add(conquista.getId());
-					listaData.add(conquista.getDataAlteracao());
-				});
-
-				return repository.buscarNovasAtualizacoes(listaId, listaData);
+				
+				
+				for (Conquista c : conquistas) {
+					listaId.add(c.getId());
+					listaData.add(c.getDataAlteracao());
+					
+					
+					Conquista conquistaAtualizada = repository.verificarAtualizacao(c.getId(), c.getDataAlteracao()); 
+					if(conquistaAtualizada != null)
+						conquistasAtualizadas.add(conquistaAtualizada);
+				}
+				
+				conquistasAtualizadas.addAll(repository.buscarNovasConquistas(listaId, email));
+				
+				return conquistasAtualizadas;
+				
 			} else {
 				return repository.findAll();
 			}

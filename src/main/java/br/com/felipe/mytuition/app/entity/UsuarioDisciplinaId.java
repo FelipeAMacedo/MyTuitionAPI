@@ -13,8 +13,8 @@ public class UsuarioDisciplinaId implements Serializable {
 	@Column(name = "id_usuario")
 	private String usuarioId;
 
-	@Column(name = "id_conquista")
-	private Long conquistaId;
+	@Column(name = "id_disciplina")
+	private Long disciplinaId;
 
 	public String getUsuarioId() {
 		return usuarioId;
@@ -24,12 +24,12 @@ public class UsuarioDisciplinaId implements Serializable {
 		this.usuarioId = usuarioId;
 	}
 
-	public Long getConquistaId() {
-		return conquistaId;
+	public Long getDisciplinaId() {
+		return disciplinaId;
 	}
 
-	public void setConquistaId(Long conquistaId) {
-		this.conquistaId = conquistaId;
+	public void setDisciplinaId(Long disciplinaId) {
+		this.disciplinaId = disciplinaId;
 	}
 
 }

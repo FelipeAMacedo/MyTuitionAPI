@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,6 +29,7 @@ import br.com.felipe.mytuition.app.api.dto.save.wrapper.ConquistaBuscaWrapper;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.ConquistaSaveWrapper;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.ConquistaUsuarioSaveWrapper;
 import br.com.felipe.mytuition.app.entity.Conquista;
+import br.com.felipe.mytuition.app.entity.Disciplina;
 import br.com.felipe.mytuition.app.entity.UsuarioConquista;
 import br.com.felipe.mytuition.app.service.ConquistaService;
 import br.com.felipe.mytuition.app.service.UsuarioConquistaService;
@@ -60,8 +62,7 @@ public class ConquistaRestfulImpl implements ConquistaRestful {
 
 		ConquistaSaveDTO conquistaDTO = wrapper.getConquistaDTO();
 
-		ModelMapper mapper = new ModelMapper();
-		Conquista conquista = mapper.map(conquistaDTO, Conquista.class);
+		Conquista conquista = mapConquistaSaveToEntity(conquistaDTO);
 
 		try {
 			conquistaService.insert(conquista);
@@ -72,6 +73,21 @@ public class ConquistaRestfulImpl implements ConquistaRestful {
 
 			return Response.status(result.getCode()).entity(result).build();
 		}
+	}
+
+	private Conquista mapConquistaSaveToEntity(ConquistaSaveDTO conquistaDTO) {
+		ModelMapper mapper = new ModelMapper();
+		Conquista conquista = mapper.map(conquistaDTO, Conquista.class);
+
+		if (conquistaDTO.getDisciplinaConquistaSaveDTO() != null
+				&& conquistaDTO.getDisciplinaConquistaSaveDTO().getId() != 0) {
+			
+			Disciplina disciplina = new Disciplina();
+			disciplina.setId(conquistaDTO.getDisciplinaConquistaSaveDTO().getId());
+			conquista.setDisciplina(disciplina);
+		}
+
+		return conquista;
 	}
 
 	@Override
@@ -101,7 +117,7 @@ public class ConquistaRestfulImpl implements ConquistaRestful {
 	@Path("/buscarNovasAtualizacoes")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscarNovasAtualizacoes(ConquistaBuscaWrapper wrapper) {
+	public Response buscarNovasAtualizacoes(ConquistaBuscaWrapper wrapper, @HeaderParam("email") String email) {
 
 		List<ConquistaBuscaDTO> conquistasDTO = wrapper.getConquistaBuscaDTO();
 		List<Conquista> conquistas = new ArrayList<>();
@@ -111,7 +127,7 @@ public class ConquistaRestfulImpl implements ConquistaRestful {
 
 		try {
 			List<ConquistaResultDTO> novasConquistasDTO = mapResultListToDTO(
-					conquistaService.buscarNovasAtualizacoes(conquistas));
+					conquistaService.buscarNovasAtualizacoes(conquistas, email));
 
 			String responseList = mapToResponse(novasConquistasDTO);
 
@@ -126,7 +142,7 @@ public class ConquistaRestfulImpl implements ConquistaRestful {
 
 	private String mapToResponse(List<ConquistaResultDTO> novasConquistasDTO) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
-		ObjectWriter writer = mapper.writer().withRootName("conteudos");
+		ObjectWriter writer = mapper.writer().withRootName("conquistas");
 
 		try {
 			return writer.writeValueAsString(novasConquistasDTO);
