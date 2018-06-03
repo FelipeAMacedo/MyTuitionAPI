@@ -1,5 +1,7 @@
 package br.com.felipe.mytuition.app.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -28,6 +30,21 @@ public class DisciplinaServiceImpl implements DisciplinaService {
 			LOGGER.info("Não foi possível inserir uma nova materia");
 			throw new Exception("Não foi possível inserir a matéria", e);
 		}
+	}
+
+	@Override
+	public List<Disciplina> buscarTodas(String email) throws Exception {
+		LOGGER.info("As disciplinas serão buscadas");
+		try {
+			if (email == null || email.isEmpty())
+				throw new Exception("Email não informado");
+			else
+				return repository.findAll(email);
+		} catch (Exception e) {
+			LOGGER.info("Erro ao buscar as disciplinas");
+			throw new Exception("Erro ao buscar as disciplinas", e);
+		}
+
 	}
 
 }
