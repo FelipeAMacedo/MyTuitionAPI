@@ -2,10 +2,12 @@ package br.com.felipe.mytuition.app.api.dto.conquista;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import br.com.felipe.mytuition.app.api.dto.usuarioConquista.UsuarioConquistaResultDTO;
 import br.com.felipe.mytuition.app.utils.LocalDateTimeSerializer;
 
 public class ConquistaResultDTO implements Serializable {
@@ -31,6 +33,9 @@ public class ConquistaResultDTO implements Serializable {
 	@JsonProperty(value = "dataAlteracao")
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime dataAlteracao;
+	
+	@JsonProperty(value = "usuarioConquista")
+	private Set<UsuarioConquistaResultDTO> usuarioConquistaResultDTO;
 
 	public Long getId() {
 		return id;
@@ -80,4 +85,12 @@ public class ConquistaResultDTO implements Serializable {
 		this.dataAlteracao = dataAlteracao;
 	}
 
+	public Set<UsuarioConquistaResultDTO> getUsuarioConquistaResultDTO() {
+		return usuarioConquistaResultDTO;
+	}
+
+	public void setUsuarioConquistaResultDTO(Set<UsuarioConquistaResultDTO> usuarioConquistaResultDTO) {
+		this.usuarioConquistaResultDTO = usuarioConquistaResultDTO;
+	}
+	
 }

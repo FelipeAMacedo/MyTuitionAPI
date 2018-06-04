@@ -53,7 +53,7 @@ public class MateriaRestfulImpl implements MateriaRestful {
 
 		ModelMapper mapper = new ModelMapper();
 		Materia materia = mapper.map(materiaDTO, Materia.class);
-		
+
 		addMateriaToConteudos(materia);
 
 		try {
@@ -72,7 +72,7 @@ public class MateriaRestfulImpl implements MateriaRestful {
 			conteudo.setMateria(materia);
 			addConteudoToAlternativas(conteudo);
 		});
-		
+
 	}
 
 	private void addConteudoToAlternativas(Conteudo conteudo) {
@@ -111,17 +111,27 @@ public class MateriaRestfulImpl implements MateriaRestful {
 
 			List<MateriaResultDTO> materiasDTO = mapResultListToDTO(materias);
 
-			ObjectMapper mapper = new ObjectMapper();
-			ObjectWriter writer = mapper.writer().withRootName("materias");
-			String responseList = writer.writeValueAsString(materiasDTO);
+			String responseList = mapToResponse(materiasDTO);
 
 			return Response.ok(responseList).build();
-		
+
 		} catch (Exception e) {
 			result.setCode(Status.BAD_REQUEST.getStatusCode());
 			result.setMessage(e.getMessage());
 
 			return Response.status(result.getCode()).entity(result).build();
+		}
+	}
+
+	private String mapToResponse(List<MateriaResultDTO> materiasDTO) throws Exception {
+
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectWriter writer = mapper.writer().withRootName("materias");
+
+		try {
+			return writer.writeValueAsString(materiasDTO);
+		} catch (Exception e) {
+			throw new Exception("Erro ao converter as matérias em String", e);
 		}
 	}
 
@@ -131,16 +141,17 @@ public class MateriaRestfulImpl implements MateriaRestful {
 		ModelMapper mapper = new ModelMapper();
 
 		materias.forEach(materia -> {
-			
+
 			MateriaResultDTO materiaResult = mapper.map(materia, MateriaResultDTO.class);
-			
+
 			if (!materia.getUsuarioMateria().isEmpty()) {
 				Set<UsuarioMateriaResultDTO> usuarioMateriasDTO = new HashSet<>(0);
-				
-				materia.getUsuarioMateria().forEach(usuarioMateria -> usuarioMateriasDTO.add(mapper.map(usuarioMateria, UsuarioMateriaResultDTO.class)));
+
+				materia.getUsuarioMateria().forEach(usuarioMateria -> usuarioMateriasDTO
+						.add(mapper.map(usuarioMateria, UsuarioMateriaResultDTO.class)));
 				materiaResult.setUsuarioMateriaResultDTO(usuarioMateriasDTO);
 			}
-			
+
 			materiasDTO.add(materiaResult);
 		});
 

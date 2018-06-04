@@ -27,9 +27,9 @@ public interface ConquistaRepository extends JpaRepository<Conquista, Long> {
 	
 	
 	
-	@Query("select c from Conquista c where c.id = :id AND c.dataAlteracao != :dataAlteracao")
-	Conquista verificarAtualizacao(@Param("id") Long id, @Param("dataAlteracao") LocalDateTime dataAlteracao);
+	@Query("select c from Conquista c LEFT JOIN c.usuarioConquista uc ON (c.id = uc.conquista.id AND uc.usuario.id = :email) where c.id = :id AND c.dataAlteracao != :dataAlteracao")
+	Conquista verificarAtualizacao(@Param("id") Long id, @Param("dataAlteracao") LocalDateTime dataAlteracao, @Param("email") String email);
 	
-	@Query("select c from Conquista c where c.id NOT IN :listaId AND (c.disciplina = null OR c.disciplina IN (select ud.disciplina from UsuarioDisciplina ud Where ud.id.usuarioId = :email))")
+	@Query("select c from Conquista c LEFT JOIN c.usuarioConquista uc ON (c.id = uc.conquista.id AND uc.usuario.id = :email) where c.id NOT IN :listaId AND (c.disciplina = null OR c.disciplina IN (select ud.disciplina from UsuarioDisciplina ud Where ud.id.usuarioId = :email))")
 	List<Conquista> buscarNovasConquistas(@Param("listaId") List<Long> listaId, @Param("email") String email);
 }

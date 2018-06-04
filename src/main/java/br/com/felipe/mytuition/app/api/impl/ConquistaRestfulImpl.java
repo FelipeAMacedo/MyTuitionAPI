@@ -1,7 +1,9 @@
 package br.com.felipe.mytuition.app.api.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,12 +24,13 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import br.com.felipe.mytuition.app.api.ConquistaRestful;
 import br.com.felipe.mytuition.app.api.dto.conquista.ConquistaBuscaDTO;
-import br.com.felipe.mytuition.app.api.dto.conquista.ConquistaSaveDTO;
 import br.com.felipe.mytuition.app.api.dto.conquista.ConquistaResultDTO;
+import br.com.felipe.mytuition.app.api.dto.conquista.ConquistaSaveDTO;
 import br.com.felipe.mytuition.app.api.dto.conquista.ConquistaUsuarioDTO;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.ConquistaBuscaWrapper;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.ConquistaSaveWrapper;
 import br.com.felipe.mytuition.app.api.dto.save.wrapper.ConquistaUsuarioSaveWrapper;
+import br.com.felipe.mytuition.app.api.dto.usuarioConquista.UsuarioConquistaResultDTO;
 import br.com.felipe.mytuition.app.entity.Conquista;
 import br.com.felipe.mytuition.app.entity.Disciplina;
 import br.com.felipe.mytuition.app.entity.UsuarioConquista;
@@ -81,7 +84,7 @@ public class ConquistaRestfulImpl implements ConquistaRestful {
 
 		if (conquistaDTO.getDisciplinaConquistaSaveDTO() != null
 				&& conquistaDTO.getDisciplinaConquistaSaveDTO().getId() != 0) {
-			
+
 			Disciplina disciplina = new Disciplina();
 			disciplina.setId(conquistaDTO.getDisciplinaConquistaSaveDTO().getId());
 			conquista.setDisciplina(disciplina);
@@ -156,7 +159,19 @@ public class ConquistaRestfulImpl implements ConquistaRestful {
 
 		ModelMapper mapper = new ModelMapper();
 
-		conquistas.forEach(conquista -> conquistaResultDTO.add(mapper.map(conquista, ConquistaResultDTO.class)));
+		conquistas.forEach(conquista -> {
+			
+			ConquistaResultDTO conquistaResult = mapper.map(conquista, ConquistaResultDTO.class);
+			
+			if (!conquista.getUsuarioConquista().isEmpty()) {
+				Set<UsuarioConquistaResultDTO> usuarioConquistasDTO = new HashSet<>(0);
+				
+				conquista.getUsuarioConquista().forEach(usuarioConquista -> usuarioConquistasDTO.add(mapper.map(usuarioConquista, UsuarioConquistaResultDTO.class)));
+				conquistaResult.setUsuarioConquistaResultDTO(usuarioConquistasDTO);
+			}
+			
+			conquistaResultDTO.add(conquistaResult);
+		});
 
 		return conquistaResultDTO;
 	}

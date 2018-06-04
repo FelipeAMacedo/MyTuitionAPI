@@ -23,11 +23,11 @@ public class DisciplinaServiceImpl implements DisciplinaService {
 
 	@Override
 	public Disciplina inserir(Disciplina disciplina) throws Exception {
-		LOGGER.info("Vai inserir uma nova matéria");
+		LOGGER.info("Vai inserir uma nova disciplina");
 		try {
 			return repository.save(disciplina);
 		} catch (Exception e) {
-			LOGGER.info("Não foi possível inserir uma nova materia");
+			LOGGER.info("Não foi possível inserir uma nova disciplina");
 			throw new Exception("Não foi possível inserir a matéria", e);
 		}
 	}

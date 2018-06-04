@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.felipe.mytuition.app.api.impl.ConquistaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.ConteudoRestfulImpl;
+import br.com.felipe.mytuition.app.api.impl.CursoRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.DisciplinaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.HelloImpl;
 import br.com.felipe.mytuition.app.api.impl.HeroiRestfulImpl;
@@ -28,5 +29,6 @@ public class JerseyConfig extends ResourceConfig {
 		register(ConteudoRestfulImpl.class);
 		register(HeroiRestfulImpl.class);
 		register(UsuarioMateriaRestfulImpl.class);
+		register(CursoRestfulImpl.class);
 	}
 }

@@ -34,7 +34,7 @@ public class Conquista implements Serializable {
 	@ManyToOne(optional= true)
 	private Disciplina disciplina;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "conquista")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "conquista")
 	private Set<UsuarioConquista> usuarioConquista = new HashSet<>(0);
 
 	public Long getId() {

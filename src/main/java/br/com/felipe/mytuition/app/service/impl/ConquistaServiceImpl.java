@@ -51,7 +51,7 @@ public class ConquistaServiceImpl implements ConquistaService {
 					listaData.add(c.getDataAlteracao());
 					
 					
-					Conquista conquistaAtualizada = repository.verificarAtualizacao(c.getId(), c.getDataAlteracao()); 
+					Conquista conquistaAtualizada = repository.verificarAtualizacao(c.getId(), c.getDataAlteracao(), email); 
 					if(conquistaAtualizada != null)
 						conquistasAtualizadas.add(conquistaAtualizada);
 				}
