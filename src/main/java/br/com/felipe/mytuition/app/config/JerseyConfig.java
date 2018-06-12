@@ -7,9 +7,9 @@ import br.com.felipe.mytuition.app.api.impl.ConquistaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.ConteudoRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.CursoRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.DisciplinaRestfulImpl;
-import br.com.felipe.mytuition.app.api.impl.HelloImpl;
 import br.com.felipe.mytuition.app.api.impl.HeroiRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.MateriaRestfulImpl;
+import br.com.felipe.mytuition.app.api.impl.UsuarioDisciplinaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.UsuarioMateriaRestfulImpl;
 import br.com.felipe.mytuition.app.api.impl.UsuarioRestfulImpl;
 
@@ -21,7 +21,6 @@ public class JerseyConfig extends ResourceConfig {
 	}
 	
 	public void registerEndpoints() {
-		register(HelloImpl.class);
 		register(UsuarioRestfulImpl.class);
 		register(DisciplinaRestfulImpl.class);
 		register(MateriaRestfulImpl.class);
@@ -29,6 +28,7 @@ public class JerseyConfig extends ResourceConfig {
 		register(ConteudoRestfulImpl.class);
 		register(HeroiRestfulImpl.class);
 		register(UsuarioMateriaRestfulImpl.class);
+		register(UsuarioDisciplinaRestfulImpl.class);
 		register(CursoRestfulImpl.class);
 	}
 }
