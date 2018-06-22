@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -48,7 +49,7 @@ public class UsuarioRestfulImpl implements UsuarioRestful {
 
 		try {
 			service.registrar(usuario);
-			
+
 			result.setCode(Status.OK.getStatusCode());
 			result.setMessage("Usuário inserido com sucesso");
 			return Response.ok(result).build();
@@ -70,18 +71,17 @@ public class UsuarioRestfulImpl implements UsuarioRestful {
 
 		ModelMapper mapper = new ModelMapper();
 		Usuario usuario = mapper.map(loginDTO, Usuario.class);
-		
-		
+
 		try {
 			Usuario usuarioLogado = service.login(usuario);
-			
+
 			UsuarioResponseDTO dto = mapper.map(usuarioLogado, UsuarioResponseDTO.class);
 			HeroiResponseDTO heroiResponseDTO = mapper.map(usuarioLogado.getHeroi(), HeroiResponseDTO.class);
 			AtaqueResponseDTO ataqueResponseDTO = mapper.map(usuarioLogado.getAtaque(), AtaqueResponseDTO.class);
-			
+
 			dto.setAtaqueResponseDTO(ataqueResponseDTO);
 			dto.setHeroiResponseDTO(heroiResponseDTO);
-			
+
 			return Response.ok(dto).build();
 		} catch (Exception e) {
 			result.setCode(Status.BAD_REQUEST.getStatusCode());
@@ -101,5 +101,21 @@ public class UsuarioRestfulImpl implements UsuarioRestful {
 		usuario.setEmail("felipe");
 
 		return Response.ok(usuario).build();
+	}
+
+	@Override
+	@GET
+	@Path("/recuperarSenha/{email}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recuperarSenha(@PathParam("email") String email) {
+		try {
+			service.recuperarSenha(email);
+			return Response.ok().build();
+		} catch (Exception e) {
+			result.setCode(Status.BAD_REQUEST.getStatusCode());
+			result.setMessage(e.getMessage());
+			return Response.status(result.getCode()).entity(result).build();
+		}
+		
 	}
 }

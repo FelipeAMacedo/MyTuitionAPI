@@ -11,4 +11,6 @@ public interface UsuarioRestful {
 	Response logar(LoginWrapper wrapper);
 	
 	Response findAll();
+	
+	Response recuperarSenha(String email);
 }

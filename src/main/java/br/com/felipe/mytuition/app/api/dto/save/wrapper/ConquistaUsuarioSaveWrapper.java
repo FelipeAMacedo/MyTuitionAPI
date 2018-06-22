@@ -10,7 +10,7 @@ public class ConquistaUsuarioSaveWrapper implements Serializable {
 
 	private static final long serialVersionUID = -2398192563883166969L;
 
-	@JsonProperty(value = "conquista")
+	@JsonProperty(value = "conquistaUsuario")
 	private ConquistaUsuarioDTO conquistaUsuarioDTO;
 
 	public ConquistaUsuarioDTO getConquistaUsuarioDTO() {

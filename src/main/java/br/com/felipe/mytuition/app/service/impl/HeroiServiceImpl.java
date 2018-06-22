@@ -33,4 +33,19 @@ public class HeroiServiceImpl implements HeroiService {
 		return repository.save(heroi);
 	}
 
+	@Override
+	public Heroi aumentarPontos(Heroi heroi) throws Exception {
+		LOGGER.info("Será adicionado pontos ao herói");
+		
+		Heroi heroiFromDb = repository.findOne(heroi.getId());
+		if (heroiFromDb == null) {
+			throw new Exception("O herói com o id " + heroi.getId() + " não existe");
+		}
+		
+		heroiFromDb.setAtaque(heroi.getAtaque());
+		heroiFromDb.setDefesa(heroi.getDefesa());
+		
+		return repository.save(heroiFromDb);
+	}
+
 }

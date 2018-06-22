@@ -5,4 +5,5 @@ import br.com.felipe.mytuition.app.entity.Heroi;
 public interface HeroiService {
  
 	Heroi adicionarExperiencia(Long id, Integer pontos) throws Exception;
+	Heroi aumentarPontos(Heroi heroi) throws Exception;
 }

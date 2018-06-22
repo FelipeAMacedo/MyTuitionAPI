@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import br.com.felipe.mytuition.app.utils.LocalDateDeserializer;
 
 public class ConquistaUsuarioDTO implements Serializable {
 
@@ -16,6 +19,7 @@ public class ConquistaUsuarioDTO implements Serializable {
 	private Long idConquista;
 
 	@JsonProperty(value = "data")
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate data;
 
 	public String getIdUsuario() {
